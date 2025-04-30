@@ -58,7 +58,7 @@ const Payment = () => {
 
         const baseUrl = window.location.origin;
         const repoName = "Ecommerce-App";
-        const redirectUrl = `${baseUrl}/${repoName}#/allorders`;
+        const redirectUrl = `${baseUrl}/${repoName}/#/allorders`;
 
         try {
             const { data } = await axios.post(
