@@ -56,12 +56,13 @@ const Payment = () => {
         };
       
 
-        const baseUrl = window.location.origin; 
-        const redirectUrl = `${baseUrl}#/allorders`; 
+        const baseUrl = window.location.origin;
+        const repoName = "Ecommerce-App"; 
+        const redirectUrl = `${baseUrl}/${repoName}#/allorders`; 
       
         try {
           const { data } = await axios.post(
-            `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${redirectUrl}`,
+            `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${encodeURIComponent(redirectUrl)}`,
             cashOrderObject,
             {
               headers: {
@@ -70,7 +71,7 @@ const Payment = () => {
             }
           );
       
-          window.open(data.session.url); 
+          window.open(data.session.url);
           toast.success(data.status);
         } catch (error) {
           toast.error(error.response?.data?.message || "Payment failed");

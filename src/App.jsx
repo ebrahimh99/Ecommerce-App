@@ -1,5 +1,4 @@
-
-import { createBrowserRouter , RouterProvider } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
 import Products from './components/Products/Products'
 import Register from './components/Register/Register'
@@ -30,58 +29,43 @@ import ResetPassword from './components/ResetPassword/ResetPassword'
 
 
 function App() {
-  const myRouter = createBrowserRouter([
-    {
-      path: "/", element: <Layout />, children: [
-        { index: true, element: <ProtectedRoute><Home /></ProtectedRoute> },
-        { path: "/home", element: <ProtectedRoute><Home /></ProtectedRoute> },
-        { path: "/products", element: <ProtectedRoute><Products /></ProtectedRoute> },
-        { path: "/brand", element: <ProtectedRoute><Brand /></ProtectedRoute> },
-        { path: "/categories", element: <ProtectedRoute><Categories /></ProtectedRoute> },
-        { path: "/productDetails/:id", element: <ProtectedRoute><ProductDetails /></ProtectedRoute> },
-        { path: "/cart", element: <ProtectedRoute><Cart /></ProtectedRoute> },
-        { path: "/wishlist", element: <ProtectedRoute><WishList /></ProtectedRoute> },
-        { path: "/payment", element: <ProtectedRoute><Payment /></ProtectedRoute> },
-        { path: "/allorders", element: <ProtectedRoute><AllOrders /></ProtectedRoute> },
+  const queryClient = new QueryClient();
 
-
-
-
-
-
-        { path: "/login", element: <Login /> },
-        { path: "/register", element: <Register /> },
-        { path: "/forget", element: <Forget /> },
-        { path: "/resetcode", element: <ResetCode /> },
-        { path: "/resetpassword", element: <ResetPassword /> },
-
-
-        { path: "*", element: <NotFoundPage /> },
-
-
-
-      ]
-    }
-  ])
-
-  const x = new QueryClient()
   return (
-    <QueryClientProvider client={x}>
+    <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
         <CartContextProvider>
           <WishlistContextProvider>
             <Toaster />
-            <RouterProvider router={myRouter} />
+            <HashRouter>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
+                  <Route path="home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+                  <Route path="products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
+                  <Route path="brand" element={<ProtectedRoute><Brand /></ProtectedRoute>} />
+                  <Route path="categories" element={<ProtectedRoute><Categories /></ProtectedRoute>} />
+                  <Route path="productDetails/:id" element={<ProtectedRoute><ProductDetails /></ProtectedRoute>} />
+                  <Route path="cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+                  <Route path="wishlist" element={<ProtectedRoute><WishList /></ProtectedRoute>} />
+                  <Route path="payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
+                  <Route path="allorders" element={<ProtectedRoute><AllOrders /></ProtectedRoute>} />
+                  
+                  <Route path="login" element={<Login />} />
+                  <Route path="register" element={<Register />} />
+                  <Route path="forget" element={<Forget />} />
+                  <Route path="resetcode" element={<ResetCode />} />
+                  <Route path="resetpassword" element={<ResetPassword />} />
+                  
+                  <Route path="*" element={<NotFoundPage />} />
+                </Route>
+              </Routes>
+            </HashRouter>
           </WishlistContextProvider>
         </CartContextProvider>
       </AuthContextProvider>
     </QueryClientProvider>
-
-
-
-
-
-  )
+  );
 }
 
 export default App
