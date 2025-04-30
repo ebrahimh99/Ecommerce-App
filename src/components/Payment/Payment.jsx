@@ -48,35 +48,35 @@ const Payment = () => {
 
     async function onlinePayment() {
         const cashOrderObject = {
-          shippingAddress: {
-            details,
-            phone,
-            city,
-          },
+            shippingAddress: {
+                details,
+                phone,
+                city,
+            },
         };
-      
+
 
         const baseUrl = window.location.origin;
-        const repoName = "Ecommerce-App"; 
-        const redirectUrl = `${baseUrl}/${repoName}#/allorders`; 
-      
+        const repoName = "Ecommerce-App";
+        const redirectUrl = `${baseUrl}/${repoName}#/allorders`;
+
         try {
-          const { data } = await axios.post(
-            `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${encodeURIComponent(redirectUrl)}`,
-            cashOrderObject,
-            {
-              headers: {
-                token: localStorage.getItem("token"),
-              },
-            }
-          );
-      
-          window.open(data.session.url);
-          toast.success(data.status);
+            const { data } = await axios.post(
+                `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${redirectUrl}`,
+                cashOrderObject,
+                {
+                    headers: {
+                        token: localStorage.getItem("token"),
+                    },
+                }
+            );
+
+            window.open(data.session.url);
+            toast.success(data.status);
         } catch (error) {
-          toast.error(error.response?.data?.message || "Payment failed");
+            toast.error(error.response?.data?.message || "Payment failed");
         }
-      }
+    }
 
 
     return (
@@ -88,7 +88,7 @@ const Payment = () => {
                     <h2 className="text-center text-3xl font-semibold text-green-600">
                         Payment
                     </h2>
-                    
+
 
                     <div className="w-full flex flex-wrap justify-center items-center gap-8">
                         {/* Phone Number input */}
@@ -166,7 +166,7 @@ const Payment = () => {
 
                         </div>
 
-                        
+
 
 
                     </div>
