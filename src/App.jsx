@@ -1,4 +1,4 @@
-import { HashRouter, createBrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
 import Products from './components/Products/Products'
 import Register from './components/Register/Register'
@@ -37,7 +37,7 @@ function App() {
         <CartContextProvider>
           <WishlistContextProvider>
             <Toaster />
-            <createBrowserRouter>
+            <HashRouter>
               <Routes>
                 <Route path="/" element={<Layout />}>
                   <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
@@ -60,7 +60,7 @@ function App() {
                   <Route path="*" element={<NotFoundPage />} />
                 </Route>
               </Routes>
-            </createBrowserRouter>
+            </HashRouter>
           </WishlistContextProvider>
         </CartContextProvider>
       </AuthContextProvider>
